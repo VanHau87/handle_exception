@@ -26,11 +26,10 @@ public class StudentServiceImpl implements StudentService{
 			BeanUtils.copyProperties(dto, student);
 			student.setId(UUID.randomUUID().toString());
 			var savedStudent = repository.save(student);
-			StudentDTO savedDto = new StudentDTO();
-			BeanUtils.copyProperties(savedStudent, savedDto);
-			return savedDto;
+			BeanUtils.copyProperties(savedStudent, dto);
+			return dto;
 		} catch (Exception e) {
-			throw new FailedToSaveData(e.getMessage());
+			throw new FailedToSaveData(String.format("Failed to create student: %s", e.getMessage()));
 		}
 		
 	}
@@ -43,6 +42,26 @@ public class StudentServiceImpl implements StudentService{
 		StudentDTO dto = new StudentDTO();
 		BeanUtils.copyProperties(student, dto);
 		return dto;
+	}
+
+	@Override
+	public StudentDTO updateStudent(StudentDTO dto) {
+		try {
+			Student student = new Student();
+			BeanUtils.copyProperties(dto, student);
+			Student savedStudent = repository.save(student);
+			BeanUtils.copyProperties(savedStudent, dto);
+			return dto;
+		} catch (Exception e) {
+			throw new FailedToSaveData(String.format("Failed to update student: %s", e.getMessage()));
+		}
+
+	}
+
+	@Override
+	public boolean isValueExistByFieldName(String value, String fieldName) {
+		Student student = repository.hasValueExist(value, fieldName);
+		return student != null;
 	}
 	
 }

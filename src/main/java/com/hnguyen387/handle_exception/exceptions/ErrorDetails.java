@@ -7,6 +7,7 @@ public class ErrorDetails {
     private LocalDateTime timeStamp;
     private String errMessage;
     private String status;
+    
 	public int getStatusCode() {
 		return statusCode;
 	}

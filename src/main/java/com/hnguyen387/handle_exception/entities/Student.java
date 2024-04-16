@@ -1,5 +1,6 @@
 package com.hnguyen387.handle_exception.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -7,11 +8,15 @@ import jakarta.persistence.Id;
 public class Student {
 	@Id
 	private String id;
+	@Column(name="first_name")
 	private String firstName;
+	@Column(name="last_name")
 	private String lastName;
+	@Column(name="middle_name")
 	private String middleName;
 	private int age;
 	private String email;
+	@Column(name="phone_number")
 	private String phoneNumber;
 	public String getId() {
 		return id;
